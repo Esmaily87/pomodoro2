@@ -5,8 +5,8 @@ import { LayoutContainer } from "./styles";
 export function DefaultLayout() {
     return(
         <LayoutContainer>
-            <Header />
-            <Outlet />
+            <Header />{/* Abaixo do header é que virá o conteudo, o header ficara fixo*/}
+            <Outlet /> {/*  Aqui definirá o conteudo a ser exibido, se home ou history  */}
         </LayoutContainer>
     )
 }

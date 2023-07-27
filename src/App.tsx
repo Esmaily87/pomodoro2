@@ -7,11 +7,13 @@ import { defaultTheme } from "./styles/themes/default";
 import { GlobalStyle } from "./styles/global";
 
 export function App() {
+
+  
  
 
-  return (
+  return (// necessário wraper para o elementos das rotas usando browser router
    <ThemeProvider theme = {defaultTheme}>
-        <BrowserRouter>
+        <BrowserRouter> 
       
           <Router/>
       
