@@ -1,5 +1,5 @@
 import { Play } from "phosphor-react";
-import { CountDownContainer, FormContainer, HomeContainer, MinutesAmountInput, Separator, StartCountDownButton, TaskInput } from "./styles";
+import { CountDownContainer, FormContainer, HomeContainer, MinutesAmountInput, Separator, StartCountdownButton, TaskInput } from "./styles";
 import { useState } from "react";
 
 export function Home(){
@@ -42,9 +42,9 @@ export function Home(){
             <span>0</span>
         </CountDownContainer>
 
-        <StartCountDownButton disabled={!task} type="submit">{/* desabiltia o countdown somente quando nao estiver nada escrito no setTask */}
+        <StartCountdownButton disabled={!task} type="submit">{/* desabiltia o countdown somente quando nao estiver nada escrito no setTask */}
             <Play size={24}/> 
-        </StartCountDownButton>
+        </StartCountdownButton>
         </form>
             
         </HomeContainer>

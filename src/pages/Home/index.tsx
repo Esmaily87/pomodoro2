@@ -66,7 +66,7 @@ export function Home(){
             
         }, [activeCycle])
     
-    function handleCreateNewCycle(data: NewCycleFormData) {
+    function handleCreateNewCycle(data: NewCycleFormData) { //funcao que cria um novo ciclo
             const id = String(new Date().getTime());
 
         const newCycle: Cycle = { //deve ter id, task e minutesAmount
@@ -86,7 +86,7 @@ export function Home(){
 
     }
 
-    function handleInterruptCycle(){
+    function handleInterruptCycle(){ //funcao que interrompe um ciclo
         setActiveCycleId(null);
 
         setCycles(
