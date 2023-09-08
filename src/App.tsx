@@ -6,13 +6,14 @@ import { GlobalStyle } from "./styles/global"
 import React from "react"
 
 
+
 export function App() {
 
-    const[selectedTheme, setSelectedTheme] = React.useState("dark");
+    const[selectedTheme, setSelectedTheme] = React.useState("dark"); //estado que monitora a alteracao do setSelectedTheme
 
-    const handleThemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newTheme = event.target.value;
-    setSelectedTheme(newTheme);
+    const handleThemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {//funcao que captura a mudanca de evento
+    const newTheme = event.target.value; // pega o valor do value do theme vindo do select
+    setSelectedTheme(newTheme); //seta o valor selecionado na variável declarada anteriormente
   };
  
 
@@ -39,18 +40,16 @@ export function App() {
 
 
   return (// necessário wraper para o elementos das rotas usando browser router
-  <ThemeProvider theme = {selectedTheme =="dark" ? defaultTheme : lightTheme}>
+  <ThemeProvider theme = {selectedTheme =="dark" ? defaultTheme : lightTheme}> {/*operadoor ternario que seta dark como default e recebe a alteracao do tema*/}
         <BrowserRouter> 
       
      
-        <label>
-        Escolha um tema:
+        
         <select name="selectedTheme" value={selectedTheme} onChange={handleThemeChange}>
-          <option value="-" >-</option>
           <option value="dark">Dark Theme</option>
           <option value="light">Light Theme</option>
         </select>
-      </label>
+    
      
        
 
