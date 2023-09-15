@@ -4,9 +4,10 @@ import { HomeContainer, StartCountdownButton, StopCountdownButton } from "./styl
 import { FormProvider, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as zod from "zod"
-import { createContext, useState } from "react";
+import { createContext, useState} from "react";
 import { NewCycleForm } from "./components/NewCycleForm";
 import { Countdown } from "./components/Countdown";
+//import { ThemeContext } from "../../contexts/ThemeContext"; // importa a ThemeContext
 
 
 interface Cycle {
@@ -48,6 +49,8 @@ export function Home(){
     const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
     
     //const [task, setTask] = useState('') //monitora o estado do input, cada digitacao e armazenado no estado da aplicacao
+
+    //const { handleThemeChange, selectedTheme } = useContext(ThemeContext) 
 
 
     const newCycleForm = useForm<NewCycleFormData>({ //exibe as variaveis disponiveis na interface
@@ -135,6 +138,11 @@ export function Home(){
     return (
         
         <HomeContainer>
+
+            {/* <select name="selectedTheme" value={selectedTheme} onChange = {handleThemeChange}>
+                <option value="dark">Dark Theme</option>
+                <option value="light">Light Theme</option>
+            </select> */}
             
         
         <form onSubmit={handleSubmit(handleCreateNewCycle)}> {/*aqui seria adicionado o handleSubmit*/}
