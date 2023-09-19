@@ -1,14 +1,14 @@
 import { useFormContext } from "react-hook-form";
 import { FormContainer, MinutesAmountInput, TaskInput } from "./styles";
 import { useContext } from "react";
-import { CyclesContext } from "../..";
+import { CyclesContext } from "../../../../contexts/CyclesContext";
 
 
 export function NewCycleForm(){
 
    
 
-    const {activeCycle} = useContext(CyclesContext)
+    const {activeCycle} = useContext(CyclesContext) // 1. cria contexto entre a home e o new cycleform
     const { register } = useFormContext()
     
 
@@ -22,7 +22,7 @@ return(
             //name= "task" //o register já poem um nome
             list="task-suggestions"
             placeholder="Dê um nome para o seu projeto"
-            disabled={!!activeCycle}
+            disabled={!!activeCycle} // será passado via context
             {...register('task')} //spread operator na frente de um objeto disponibiliza todos as propriedades disponiveis do objeto
             //onChange={(e) => setTask(e.target.value)} //ao inves de capturar o que o usuario digita seria substituido por  {...register('task')} acima
             //value={task} //valor do estado, digitacao do usuario

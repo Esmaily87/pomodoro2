@@ -2,7 +2,7 @@
 import { useContext, useEffect } from 'react'
 import { CountDownContainer, Separator } from "./styles";
 import { differenceInSeconds } from 'date-fns';
-import { CyclesContext } from '../..';
+import { CyclesContext } from '../../../../contexts/CyclesContext';
 
 
 
@@ -11,7 +11,7 @@ export function Countdown() {
     const {
         activeCycle, 
         activeCycleId, 
-        markCurrentCycleAsFinished, 
+        markCurrentCycleAsFinished, //funcao passada via contexto pela home via CycleContext.provider
         amountSecondsPassed,
         setSecondsPassed
     
@@ -30,7 +30,7 @@ export function Countdown() {
             activeCycle.startDate,);
 
             if(secondsDifference >= totalSeconds){
-                markCurrentCycleAsFinished()
+                markCurrentCycleAsFinished() //funcao passada via contexto da home CycleContext.provider e chamada aqui e tambem declarada como dependencia
 
                 setSecondsPassed(totalSeconds)
                 clearInterval(interval)
@@ -45,7 +45,7 @@ export function Countdown() {
             
         }
         
-    }, [activeCycle, totalSeconds, activeCycleId, markCurrentCycleAsFinished, setSecondsPassed])
+    }, [activeCycle, totalSeconds, activeCycleId, markCurrentCycleAsFinished, setSecondsPassed]) //todas as funçoes usadas dentro de um usefet devem ser adicionadas como uma dependencia
 
     const currentSeconds = activeCycle ? totalSeconds - amountSecondsPassed : 0
     

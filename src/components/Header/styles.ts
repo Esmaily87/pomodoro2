@@ -30,6 +30,36 @@ export const HeaderContainer = styled.header`
     }
   }
 }
+  /* select{
+      background: ${props => props.theme['green-500']};
+  height: 20px;
+  border: 1px solid red;
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+ 
+  } */
 
   `
+  export const SelectTheme = styled.select`
+  background: ${props => props.theme['green-500']};
+  height: 20px;
+  border: none;
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; 
+  align-content: center;
+  margin-top: 12px;
+  color: #fff;
+
+ 
+
+  
+
+`;
 

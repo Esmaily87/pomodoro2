@@ -1,9 +1,10 @@
-import { HeaderContainer } from "./styles";
+import { HeaderContainer, SelectTheme } from "./styles";
 import logoIgnite from '../../assets/Logo.svg'
 import { Timer, Scroll } from "phosphor-react";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { ThemeContext } from "../../contexts/ThemeContext"; // importa a ThemeContext
+
 
 
 export function Header() {
@@ -17,10 +18,10 @@ export function Header() {
 
         <img src={logoIgnite} alt=""/>
             <nav>
-            <select name="selectedTheme" value={selectedTheme} onChange = {handleThemeChange}>
+            <SelectTheme name="selectedTheme" value={selectedTheme} onChange = {handleThemeChange}>
                 <option value="dark">Dark Theme</option>
                 <option value="light">Light Theme</option>
-            </select>   
+            </SelectTheme>   
             
                 <NavLink to="/" title="Timer">
                     <Timer size={24}/>
