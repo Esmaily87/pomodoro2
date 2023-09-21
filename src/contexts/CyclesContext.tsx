@@ -10,7 +10,7 @@ interface Cycle {
     task: string
     minutesAmount: number
     startDate: Date //com base na data saberemos quanto tempo se passou
-    interruptDate?: Date
+    interruptedDate?: Date
     finishedDate?: Date
 }
 

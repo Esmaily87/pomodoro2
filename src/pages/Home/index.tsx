@@ -52,16 +52,13 @@ export function Home(){
         }, 
         })
 
-    const {handleSubmit, watch, /*reset*/ } = newCycleForm
+    const {handleSubmit, watch, reset } = newCycleForm
 
-   
-    
-   
+   function handleCreateNewCycle(data: NewCycleFormData) {
+        createNewCycle(data)
+        reset()
 
-    
-    
-    
-    
+   }
 
     const task = watch('task') //variavel task que ta monitorando o estado de task
     const isSubmitDisabled = !task //variável auxiliar para monitorar o estado de task vazio
@@ -80,7 +77,7 @@ export function Home(){
             </select> */}
             
         
-        <form onSubmit={handleSubmit(createNewCycle)}> {/*aqui seria adicionado o handleSubmit*/}
+        <form onSubmit={handleSubmit(handleCreateNewCycle)}> {/*aqui seria adicionado o handleSubmit*/}
         
         <FormProvider {...newCycleForm}>
         <NewCycleForm />
