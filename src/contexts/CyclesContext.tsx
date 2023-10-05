@@ -1,18 +1,14 @@
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useState, useReducer} from "react";
+import { Cycle, cyclesReducer } from '../reducers/cycles/reducer'
+import { addNewCycleAction, intrerruptCycleAction, markCurrentCycleAsFinishedAction } from "../reducers/actions";
+//import { act } from "react-dom/test-utils";
 
 interface CreateCycleData{
     task: string,
     minutesAmount: number
 }
 
-interface Cycle {
-    id: string
-    task: string
-    minutesAmount: number
-    startDate: Date //com base na data saberemos quanto tempo se passou
-    interruptedDate?: Date
-    finishedDate?: Date
-}
+
 
 interface CyclesContextType{ //todas os valores da interface devem ser declarados no value do CycleContext.provider
     cycles: Cycle[]
@@ -32,29 +28,31 @@ type CyclesContextProviderProps = {
     children: ReactNode
 }
 
+
+
 export function CycleContextProvider({
     children,
 }: CyclesContextProviderProps) {
-  const [cycles, setCycles] = useState<Cycle[]>([]) //sempre iniciar o estado com o mesmo tipo de informacao que sera usado na aplicacao
-  const [activeCycleId, setActiveCycleId] = useState<string | null>(null) //para saber o id do ciclo ativo
-  const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
+  const [cyclesState, dispatch] = useReducer(cyclesReducer,
+    {
+    cycles: [],
+    activeCycleId: null
+    },
+    
+    )//sempre iniciar o estado com o mesmo tipo de informacao que sera usado na aplicacao
 
-  const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
+    const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
+    const{ cycles, activeCycleId } = cyclesState;
+    const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
 
   function setSecondsPassed(seconds: number){
     setAmountSecondsPassed(seconds)
 }
 
   function markCurrentCycleAsFinished(){
-    setCycles((state) => // const [cycles, setCycles] = useState<Cycle[]>([])
-            state.map(cycle => {
-                if(cycle.id ===activeCycleId){
-                    return{ ...cycle, finishedDate: new Date()  }
-                } else{
-                    return cycle
-                }
-            })
-            )
+
+    dispatch(markCurrentCycleAsFinishedAction()) 
+    
 
 }
 
@@ -68,9 +66,9 @@ const newCycle: Cycle = { //deve ter id, task e minutesAmount
     startDate: new Date(),
 }
 
-setCycles((state) => [...state, newCycle]) // sempre que uma mudança de estado depender do valor anterior usar arrow function
-                                            //o spread operator ira buscar os ciclos já criados e adicionar o newcycle ao final
-setActiveCycleId(id)
+
+    dispatch(addNewCycleAction(newCycle))                                            
+
 setAmountSecondsPassed(0)
 
 console.log(data)
@@ -79,18 +77,7 @@ console.log(data)
 }
 
 function interruptCurrentCycle(){ //funcao que interrompe um ciclo
-setActiveCycleId(null);
-
-setCycles(state =>
-    state.map(cycle=> {
-    if(cycle.id ===activeCycleId){
-        return{ ...cycle, interruptedDate: new Date()  }
-    } else{
-        return cycle
-    }
-}),
-)
-setActiveCycleId(null)
+    dispatch(intrerruptCycleAction())
 }
 /*console.log(formState.errors)*/
 console.log(activeCycle)
