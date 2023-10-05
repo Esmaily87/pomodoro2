@@ -1,6 +1,7 @@
-import { ReactNode, createContext, useState, useReducer} from "react";
+import { ReactNode, createContext, useState, useReducer, useEffect} from "react";
 import { Cycle, cyclesReducer } from '../reducers/cycles/reducer'
 import { addNewCycleAction, intrerruptCycleAction, markCurrentCycleAsFinishedAction } from "../reducers/actions";
+import { differenceInSeconds } from "date-fns";
 //import { act } from "react-dom/test-utils";
 
 interface CreateCycleData{
@@ -33,17 +34,47 @@ type CyclesContextProviderProps = {
 export function CycleContextProvider({
     children,
 }: CyclesContextProviderProps) {
-  const [cyclesState, dispatch] = useReducer(cyclesReducer,
+  const [cyclesState, dispatch] = useReducer(
+    cyclesReducer,
     {
     cycles: [],
     activeCycleId: null
     },
-    
-    )//sempre iniciar o estado com o mesmo tipo de informacao que sera usado na aplicacao
+    (initialState) => {
+        const storedStateAsJSON = localStorage.getItem(
+            '@ignite-timer:cycles-state-1.0.0',
+        )
 
-    const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
+        if(storedStateAsJSON){
+            return JSON.parse(storedStateAsJSON)
+        }
+
+        return initialState
+    },
+    
+    )//recupera os dados do reducer do localstorage
+
+
     const{ cycles, activeCycleId } = cyclesState;
     const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
+
+    const [amountSecondsPassed, setAmountSecondsPassed] = useState(() => {
+       if(activeCycle) {
+        return differenceInSeconds(new Date(), new Date(activeCycle.startDate))
+       }
+
+        return 0 
+    })
+
+    useEffect(() => { //armazena no localstorage
+        const stateJSON = JSON.stringify(cyclesState)
+
+        localStorage.setItem('@ignite-timer:cycles-state-1.0.0', stateJSON)
+
+    }, [cyclesState])
+
+    
+    
 
   function setSecondsPassed(seconds: number){
     setAmountSecondsPassed(seconds)
